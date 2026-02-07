@@ -108,3 +108,38 @@ header h1 {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   margin-bottom: 15px;
 }
+
+
+/* recipe.html specific styles */
+body.recipe-page {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+}
+
+header.recipe-header {
+  background-color: #ff6f61;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+header.recipe-header a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+main.recipe-main {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h2 { margin-top: 0; }
+h3 { margin-bottom: 0.5rem; }
+ul, ol { padding-left: 20px; }
+li { margin-bottom: 0.5rem; }
