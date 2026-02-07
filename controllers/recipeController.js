@@ -184,3 +184,18 @@ exports.getMyRecipes = async (req, res, next) => {
     next(error);
   }
 };
+
+const getRecipeById = async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id).populate('author', 'username');
+    if (!recipe) {
+      return res.status(404).json({ success: false, message: 'Recipe not found' });
+    }
+    res.json({ success: true, data: recipe });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+module.exports = { getRecipeById };

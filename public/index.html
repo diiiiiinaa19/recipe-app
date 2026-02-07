@@ -31,7 +31,8 @@
   </main>
 
   <script>
-    const apiBase = "http://localhost:5000/api";
+    const apiBase = "https://recipe-app-9ml5.onrender.com/api";
+
 
     // Check if user is logged in
     function checkAuth() {
@@ -87,7 +88,7 @@
         const card = document.createElement("div");
         card.classList.add("recipeCard");
         card.innerHTML = `
-          <h3>${recipe.title}</h3>
+          <h3><a href="recipe.html?id=${recipe._id}">${recipe.title}</a></h3>
           <p><strong>Category:</strong> ${recipe.category}</p>
           <p><strong>Cooking Time:</strong> ${recipe.cookingTime} min | <strong>Servings:</strong> ${recipe.servings}</p>
           <p><strong>Author:</strong> ${recipe.author.username}</p>
