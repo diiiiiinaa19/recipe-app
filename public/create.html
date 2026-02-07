@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Recipe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h2>Create Recipe</h2>
+    <form id="recipeForm">
+      <input type="text" name="title" placeholder="Recipe Title" required><br>
+      <textarea name="description" placeholder="Description" required></textarea><br>
+      <textarea name="ingredients" placeholder="Ingredients (one per line)" required></textarea><br>
+      <textarea name="instructions" placeholder="Instructions (one per line)" required></textarea><br>
+      <select name="category" required>
+        <option value="">Select category</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+        <option value="dessert">Dessert</option>
+        <option value="snacks">Snacks</option>
+      </select><br>
+      <input type="number" name="cookingTime" placeholder="Cooking Time (min)" required><br>
+      <input type="number" name="servings" placeholder="Servings" required><br>
+      <button type="submit">Create Recipe</button>
+    </form>
+    <p id="message"></p>
+    <p><a href="index.html">Back to Home</a></p>
+  </main>
+
+  <script>
+    const apiBase = "http://localhost:5000/api";
+
+    document.getElementById("recipeForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const form = e.target;
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        document.getElementById("message").innerText = "Please login first!";
+        return;
+      }
+
+      const data = {
+        title: form.title.value,
+        description: form.description.value,
+        ingredients: form.ingredients.value.split("\n").map(i => i.trim()),
+        instructions: form.instructions.value.split("\n").map(i => i.trim()),
+        category: form.category.value,
+        cookingTime: Number(form.cookingTime.value),
+        servings: Number(form.servings.value)
+      };
+
+      try {
+        const res = await fetch(`${apiBase}/recipes`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        document.getElementById("message").innerText = result.message;
+
+        if (result.success) {
+          form.reset();
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById("message").innerText = "Server error. Try again.";
+      }
+    });
+  </script>
+</body>
+</html>

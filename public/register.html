@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h2>Register</h2>
+    <form id="registerForm">
+      <input type="text" name="username" placeholder="Username" required><br>
+      <input type="email" name="email" placeholder="Email" required><br>
+      <input type="password" name="password" placeholder="Password" required><br>
+      <input type="text" name="bio" placeholder="Bio (optional)"><br>
+      <button type="submit">Register</button>
+    </form>
+    <p id="message"></p>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+  </main>
+
+  <script>
+    const apiBase = "http://localhost:5000/api";
+
+    document.getElementById("registerForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        username: form.username.value,
+        email: form.email.value,
+        password: form.password.value,
+        bio: form.bio.value
+      };
+
+      try {
+        const res = await fetch(`${apiBase}/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        document.getElementById("message").innerText = result.message;
+
+        if (result.success) {
+          localStorage.setItem("token", result.token);
+          window.location.href = "index.html"; // редирект на главную
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById("message").innerText = "Server error. Try again.";
+      }
+    });
+  </script>
+</body>
+</html>

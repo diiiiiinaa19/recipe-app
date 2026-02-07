@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recipe Sharing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Recipe Sharing Platform</h1>
+    <div id="userActions">
+      <button onclick="window.location.href='login.html'">Login</button>
+      <button onclick="window.location.href='register.html'">Register</button>
+      <button onclick="window.location.href='create.html'">Create Recipe</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="filters">
+      <input type="text" id="searchInput" placeholder="Search recipes by title...">
+      <select id="categorySelect">
+        <option value="">All Categories</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+        <option value="dessert">Dessert</option>
+        <option value="snacks">Snacks</option>
+      </select>
+      <button id="filterBtn">Filter</button>
+    </div>
+
+    <div id="recipesContainer"></div>
+  </main>
+
+  <script>
+    const apiBase = "http://localhost:5000/api";
+
+    async function fetchRecipes(category = "", search = "") {
+      let url = `${apiBase}/recipes?`;
+      if (category) url += `category=${category}&`;
+      if (search) url += `search=${search}`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displayRecipes(data.data || []);
+      } catch (err) {
+        console.error(err);
+        document.getElementById("recipesContainer").innerHTML = "<p>Failed to load recipes.</p>";
+      }
+    }
+
+    function displayRecipes(recipes) {
+      const container = document.getElementById("recipesContainer");
+      container.innerHTML = "";
+
+      if (recipes.length === 0) {
+        container.innerHTML = "<p>No recipes found.</p>";
+        return;
+      }
+
+      recipes.forEach(recipe => {
+        const card = document.createElement("div");
+        card.classList.add("recipeCard");
+        card.innerHTML = `
+          <h3>${recipe.title}</h3>
+          <p><strong>Category:</strong> ${recipe.category}</p>
+          <p><strong>Cooking Time:</strong> ${recipe.cookingTime} min | <strong>Servings:</strong> ${recipe.servings}</p>
+          <p><strong>Author:</strong> ${recipe.author.username}</p>
+          <p>${recipe.description}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById("filterBtn").addEventListener("click", () => {
+      const category = document.getElementById("categorySelect").value;
+      const search = document.getElementById("searchInput").value.trim();
+      fetchRecipes(category, search);
+    });
+
+    // Load all recipes on page load
+    fetchRecipes();
+  </script>
+</body>
+</html>
