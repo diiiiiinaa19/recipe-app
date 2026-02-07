@@ -5,8 +5,8 @@
   <title>Create Recipe</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <main>
+<body class="auth-page">  <!-- ← ДОБАВИТЬ КЛАСС СЮДА -->
+  <main class="auth-container">  <!-- ← ДОБАВИТЬ КЛАСС СЮДА -->
     <h2>Create Recipe</h2>
     <form id="recipeForm">
       <input type="text" name="title" placeholder="Recipe Title" required><br>
@@ -39,14 +39,15 @@
 
       if (!token) {
         document.getElementById("message").innerText = "Please login first!";
+        window.location.href = "login.html";
         return;
       }
 
       const data = {
         title: form.title.value,
         description: form.description.value,
-        ingredients: form.ingredients.value.split("\n").map(i => i.trim()),
-        instructions: form.instructions.value.split("\n").map(i => i.trim()),
+        ingredients: form.ingredients.value.split("\n").filter(i => i.trim()).map(i => i.trim()),
+        instructions: form.instructions.value.split("\n").filter(i => i.trim()).map(i => i.trim()),
         category: form.category.value,
         cookingTime: Number(form.cookingTime.value),
         servings: Number(form.servings.value)
@@ -67,6 +68,9 @@
 
         if (result.success) {
           form.reset();
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 2000);
         }
       } catch (err) {
         console.error(err);

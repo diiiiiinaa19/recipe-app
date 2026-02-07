@@ -9,9 +9,7 @@
   <header>
     <h1>Recipe Sharing Platform</h1>
     <div id="userActions">
-      <button onclick="window.location.href='login.html'">Login</button>
-      <button onclick="window.location.href='register.html'">Register</button>
-      <button onclick="window.location.href='create.html'">Create Recipe</button>
+      <!-- Buttons will be dynamically added based on login status -->
     </div>
   </header>
 
@@ -34,6 +32,32 @@
 
   <script>
     const apiBase = "http://localhost:5000/api";
+
+    // Check if user is logged in
+    function checkAuth() {
+      const token = localStorage.getItem("token");
+      const userActions = document.getElementById("userActions");
+
+      if (token) {
+        // User is logged in
+        userActions.innerHTML = `
+          <button onclick="window.location.href='create.html'">Create Recipe</button>
+          <button onclick="logout()">Logout</button>
+        `;
+      } else {
+        // User is not logged in
+        userActions.innerHTML = `
+          <button onclick="window.location.href='login.html'">Login</button>
+          <button onclick="window.location.href='register.html'">Register</button>
+        `;
+      }
+    }
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.reload();
+    }
 
     async function fetchRecipes(category = "", search = "") {
       let url = `${apiBase}/recipes?`;
@@ -79,7 +103,8 @@
       fetchRecipes(category, search);
     });
 
-    // Load all recipes on page load
+    // Check auth status and load recipes on page load
+    checkAuth();
     fetchRecipes();
   </script>
 </body>

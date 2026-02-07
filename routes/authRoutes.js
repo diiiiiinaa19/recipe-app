@@ -7,5 +7,4 @@ const { validate } = require('../middleware/validationMiddleware');
 router.post('/register', registerValidation, validate, register);
 router.post('/login', loginValidation, validate, login);
 
-
 module.exports = router;

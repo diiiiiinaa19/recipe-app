@@ -11,18 +11,19 @@ const {
 } = require('../controllers/recipeController');
 
 const { protect } = require('../middleware/authMiddleware');
-const { createRecipeValidation } = require('../validators/recipeValidator');
+const { createRecipeValidation, updateRecipeValidation } = require('../validators/recipeValidator');
 const { validate } = require('../middleware/validationMiddleware');
 
-// Public routes
+// Public route - Get all recipes
 router.get('/', getAllRecipes);
-router.get('/:id', getRecipe);
 
-// Private routes
-router.post('/', protect, createRecipeValidation, validate, createRecipe);
-router.put('/:id', protect, updateRecipe);
-router.delete('/:id', protect, deleteRecipe);
+// Private routes - ВАЖНО: /my/recipes ПЕРЕД /:id
 router.get('/my/recipes', protect, getMyRecipes);
+router.post('/', protect, createRecipeValidation, validate, createRecipe);
+
+// Routes with :id parameter - ДОЛЖНЫ БЫТЬ ПОСЛЕДНИМИ
+router.get('/:id', getRecipe);
+router.put('/:id', protect, updateRecipeValidation, validate, updateRecipe);
+router.delete('/:id', protect, deleteRecipe);
 
 module.exports = router;
-

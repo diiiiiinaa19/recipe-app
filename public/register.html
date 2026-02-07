@@ -5,8 +5,8 @@
   <title>Register</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <main>
+<body class="auth-page">  <!-- ← ДОБАВИТЬ КЛАСС СЮДА -->
+  <main class="auth-container">  <!-- ← ДОБАВИТЬ КЛАСС СЮДА -->
     <h2>Register</h2>
     <form id="registerForm">
       <input type="text" name="username" placeholder="Username" required><br>
@@ -44,7 +44,8 @@
 
         if (result.success) {
           localStorage.setItem("token", result.token);
-          window.location.href = "index.html"; // редирект на главную
+          // Redirect to home page
+          window.location.href = "index.html";
         }
       } catch (err) {
         console.error(err);

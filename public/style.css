@@ -1,10 +1,16 @@
 body {
   font-family: Arial, sans-serif;
   background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+/* Для страниц login/register (центрирование формы) */
+body.auth-page {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 main {
@@ -12,7 +18,14 @@ main {
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Для auth страниц */
+main.auth-container {
   width: 350px;
+  margin: 0;
 }
 
 h2 {
@@ -26,6 +39,7 @@ input, textarea, select, button {
   margin-bottom: 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 button {
@@ -57,10 +71,17 @@ header h1 {
   margin: 0;
 }
 
-header button {
-  margin-left: 10px;
+#userActions {
+  display: flex;
+  gap: 10px;
+}
+
+#userActions button {
+  margin: 0;
+  padding: 10px 20px;
   background: white;
   color: #ff6b6b;
+  width: auto;
 }
 
 #filters {
@@ -69,12 +90,15 @@ header button {
   align-items: center;
   gap: 10px;
   margin: 20px 0;
+  flex-wrap: wrap;
 }
 
 #filters input, #filters select, #filters button {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  width: auto;
+  min-width: 150px;
 }
 
 .recipeCard {

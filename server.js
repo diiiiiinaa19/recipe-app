@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const rateLimit = require('express-rate-limit');
 const { errorHandler, notFound } = require('./middleware/errorMiddleware');
 
 const app = express();
@@ -9,10 +10,25 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
+// Rate limiting для auth endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 requests per 15 minutes
+  message: {
+    success: false,
+    message: 'Too many login attempts, please try again later'
+  }
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Apply rate limiter to auth routes
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
+
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
@@ -46,5 +62,5 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
