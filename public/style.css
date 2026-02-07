@@ -1,185 +1,364 @@
+/* Современный и эстетичный стиль для Recipe App */
+:root {
+  --primary: #e67e22; /* Теплый оранжевый */
+  --primary-hover: #d35400;
+  --bg-color: #faf8f6; /* Очень светлый беж */
+  --text-main: #2c3e50;
+  --text-muted: #7f8c8d;
+  --card-bg: #ffffff;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
   margin: 0;
   padding: 0;
+  line-height: 1.6;
 }
 
-/* Для страниц login/register (центрирование формы) */
-body.auth-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-main {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  max-width: 1200px;
-  margin: 20px auto;
-}
-
-/* Для auth страниц */
-main.auth-container {
-  width: 350px;
-  margin: 0;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-input, textarea, select, button {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-button {
-  background: #ff6b6b;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button:hover {
-  background: #ff4757;
-}
-
-p {
-  text-align: center;
-}
-
+/* Шапка сайта */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  background: #ff6b6b;
-  color: white;
+  padding: 1rem 10%;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 header h1 {
-  margin: 0;
+  font-size: 1.5rem;
+  color: var(--primary);
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
-#userActions {
-  display: flex;
-  gap: 10px;
+/* Кнопки */
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.2);
 }
 
 #userActions button {
-  margin: 0;
-  padding: 10px 20px;
-  background: white;
-  color: #ff6b6b;
-  width: auto;
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid #eee;
 }
 
-#filters {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin: 20px 0;
-  flex-wrap: wrap;
-}
-
-#filters input, #filters select, #filters button {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: auto;
-  min-width: 150px;
-}
-
-.recipeCard {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-
-/* recipe.html specific styles */
-body.recipe-page {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  margin: 0;
-}
-
-header.recipe-header {
-  background-color: #ff6f61;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-}
-
-header.recipe-header a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-main.recipe-main {
-  max-width: 800px;
-  margin: 2rem auto;
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-h2 { margin-top: 0; }
-h3 { margin-bottom: 0.5rem; }
-ul, ol { padding-left: 20px; }
-li { margin-bottom: 0.5rem; }
-
-/* Recipe cards */
-.recipeCard {
-  background: #fff;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  position: relative;
-}
-
-/* Delete button */
-.deleteBtn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background-color: #ff4d4f;
+#userActions button:first-child {
+  background: var(--primary);
   color: white;
   border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 5px;
+}
+
+/* Контейнеры */
+main {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.auth-container {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 400px !important;
+}
+
+/* Сетка рецептов на главной */
+#recipesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Карточка рецепта */
+.recipeCard {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.03);
+  text-align: left; /* Изменено с center для современности */
+}
+
+.recipeCard:hover {
+  transform: translateY(-5px);
+}
+
+.recipeCard h3 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: var(--text-main);
   cursor: pointer;
-  font-size: 0.85rem;
-  transition: background 0.3s;
+}
+
+.recipeCard p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-align: left;
+  margin: 8px 0;
+}
+
+/* Фильтры */
+#filters {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--radius);
+  display: flex;
+  gap: 15px;
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+}
+
+input, textarea, select {
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #fff;
+}
+
+/* Страница самого рецепта (детали) */
+.recipe-main {
+  background: var(--card-bg);
+  padding: 50px;
+  border-radius: 20px;
+}
+
+.recipe-header {
+  background: var(--primary);
+  padding: 40px 20px;
+}
+
+.recipe-header a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+}
+
+h2 { font-weight: 700; color: var(--text-main); }
+h3 { margin-top: 2rem; color: var(--primary); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+
+ul, ol {
+  padding-left: 1.2rem;
+}
+
+li {
+  margin-bottom: 12px;
+}
+
+/* Удаление */
+.deleteBtn {
+  background: #fff1f0;
+  color: #ff4d4f;
+  border: 1px solid #ffa39e;
+  width: auto;
+  padding: 5px 15px;
 }
 
 .deleteBtn:hover {
-  background-color: #d9363e;
+  background: #ff4d4f;
+  color: white;
 }
 
-/* Links for recipe titles */
-.recipeCard h3 a {
-  color: #007bff;
+/* Адаптивность */
+@media (max-width: 600px) {
+  #filters {
+    flex-direction: column;
+  }
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Контейнер для кнопок внизу карточки */
+.cardActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #f0f0f0; /* Легкая разделительная линия */
+}
+
+/* Кнопка Edit (Голубая/Спокойная) */
+.editBtn {
+  background-color: #5dade2; 
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  width: auto; /* Чтобы кнопка не растягивалась */
+}
+
+.editBtn:hover {
+  background-color: #3498db;
+  transform: translateY(-1px);
+}
+
+/* Кнопка Delete (Красная/Предупреждающая) */
+.deleteBtn {
+  background-color: #ffefee;
+  color: #ff4d4f;
+  border: 1px solid #ffccc7;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  width: auto;
+}
+
+.deleteBtn:hover {
+  background-color: #ff4d4f;
+  color: white;
+}
+
+/* Специальный стиль для широкой формы редактирования */
+.edit-wide {
+  max-width: 500px !important; /* Делаем чуть шире, чтобы полям было просторно */
+}
+
+/* Группировка полей */
+.form-section {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-section label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 4px;
+}
+
+.flex-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-group {
+  flex: 1;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Улучшаем текстовые поля */
+textarea#ingredients, textarea#instructions {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.save-btn {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  padding: 12px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 15px;
   text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
-.recipeCard h3 a:hover {
-  text-decoration: underline;
+.back-link:hover {
+  color: var(--primary);
+}
+/* Основной контейнер формы редактирования */
+.auth-container.edit-clean {
+  width: 450px !important;
+  max-width: 95% !important;
+}
+
+/* Каждая группа (надпись + инпут) */
+.input-group {
+  margin-bottom: 20px; /* Увеличили отступ между полями */
+  text-align: left;
+}
+
+/* Черная надпись строго над полем */
+.input-group label {
+  display: block;
+  font-weight: 700; /* Жирный */
+  color: #000000;   /* Черный */
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* Стили полей ввода */
+.input-group input, 
+.input-group textarea, 
+.input-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 0 !important; /* Убираем лишний отступ снизу инпута */
+}
+
+/* Кнопка сохранения */
+.save-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.save-btn:hover {
+  background-color: var(--primary-hover);
 }

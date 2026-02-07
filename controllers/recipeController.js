@@ -1,8 +1,6 @@
 const Recipe = require('../models/Recipe');
 
-// @desc    Create new recipe
-// @route   POST /api/recipes
-// @access  Private
+
 exports.createRecipe = async (req, res, next) => {
   try {
     const { title, description, ingredients, instructions, category, cookingTime, servings } = req.body;
@@ -30,9 +28,9 @@ exports.createRecipe = async (req, res, next) => {
   }
 };
 
-// @desc    Get all recipes
-// @route   GET /api/recipes
-// @access  Public (can view all, but returns author info)
+
+
+
 exports.getAllRecipes = async (req, res, next) => {
   try {
     const { category, search } = req.query;
@@ -61,9 +59,9 @@ exports.getAllRecipes = async (req, res, next) => {
   }
 };
 
-// @desc    Get single recipe
-// @route   GET /api/recipes/:id
-// @access  Public
+
+
+
 exports.getRecipe = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.id).populate('author', 'username email bio');
@@ -84,9 +82,8 @@ exports.getRecipe = async (req, res, next) => {
   }
 };
 
-// @desc    Update recipe
-// @route   PUT /api/recipes/:id
-// @access  Private (only recipe author)
+
+
 exports.updateRecipe = async (req, res, next) => {
   try {
     let recipe = await Recipe.findById(req.params.id);
@@ -98,7 +95,9 @@ exports.updateRecipe = async (req, res, next) => {
       });
     }
     
-    // Check if user is recipe author
+    
+
+
     if (recipe.author.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
@@ -133,9 +132,9 @@ exports.updateRecipe = async (req, res, next) => {
   }
 };
 
-// @desc    Delete recipe
-// @route   DELETE /api/recipes/:id
-// @access  Private (only recipe author)
+
+
+
 exports.deleteRecipe = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
@@ -147,7 +146,8 @@ exports.deleteRecipe = async (req, res, next) => {
       });
     }
     
-    // Check if user is recipe author
+    
+
     if (recipe.author.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
@@ -166,9 +166,8 @@ exports.deleteRecipe = async (req, res, next) => {
   }
 };
 
-// @desc    Get user's own recipes
-// @route   GET /api/recipes/my/recipes
-// @access  Private
+
+
 exports.getMyRecipes = async (req, res, next) => {
   try {
     const recipes = await Recipe.find({ author: req.user._id })

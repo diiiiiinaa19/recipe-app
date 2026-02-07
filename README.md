@@ -1,8 +1,8 @@
-# 🍳 Recipe Sharing Website
+# Recipe Sharing Website
 
-A full-stack recipe sharing platform built with Node.js, Express, and MongoDB where users can create, share, and discover delicious recipes.
+A full-stack recipe sharing platform built with Node.js, Express, and MongoDB where users can create, share, and discover recipes.
 
-## 📋 Project Overview
+# Project Overview
 
 This is a RESTful API backend for a recipe sharing application that allows users to:
 - Register and authenticate securely with JWT
@@ -12,25 +12,25 @@ This is a RESTful API backend for a recipe sharing application that allows users
 - Search recipes by title
 - View detailed recipe information including ingredients and instructions
 
-## 🚀 Features
+# Features
 
 ### Core Features
-- ✅ **User Authentication** - Secure JWT-based authentication
-- ✅ **User Profile Management** - View and update user profiles
-- ✅ **Recipe CRUD Operations** - Full create, read, update, delete functionality
-- ✅ **Recipe Categories** - Organize recipes (Breakfast, Lunch, Dinner, Dessert, Snacks)
-- ✅ **Search & Filter** - Find recipes by title or category
-- ✅ **Author Attribution** - Each recipe is linked to its creator
-- ✅ **Input Validation** - Comprehensive validation on all endpoints
-- ✅ **Error Handling** - Detailed error messages and proper status codes
+- **User Authentication** - Secure JWT-based authentication
+-  **User Profile Management** - View and update user profiles
+-  **Recipe CRUD Operations** - Full create, read, update, delete functionality
+-  **Recipe Categories** - Organize recipes (Breakfast, Lunch, Dinner, Dessert, Snacks)
+-  **Search & Filter** - Find recipes by title or category
+-  **Author Attribution** - Each recipe is linked to its creator
+-  **Input Validation** - Comprehensive validation on all endpoints
+-  **Error Handling** - Detailed error messages and proper status codes
 
 ### Security Features
-- 🔐 **Password Hashing** - bcrypt with salt
-- 🔐 **JWT Tokens** - Secure token-based authentication
-- 🔐 **Protected Routes** - Middleware authentication
-- 🔐 **Authorization** - Users can only modify their own recipes
+- **Password Hashing** - bcrypt with salt
+- **JWT Tokens** - Secure token-based authentication
+- **Protected Routes** - Middleware authentication
+- **Authorization** - Users can only modify their own recipes
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Runtime:** Node.js
 - **Framework:** Express.js
@@ -40,7 +40,7 @@ This is a RESTful API backend for a recipe sharing application that allows users
 - **Validation:** express-validator
 - **CORS:** cors
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 recipe-sharing-website/
@@ -48,26 +48,44 @@ recipe-sharing-website/
 │   └── db.js                 # MongoDB connection
 ├── models/
 │   ├── User.js               # User schema with password hashing
-│   └── Recipe.js             # Recipe schema
+│   ├── Recipe.js             # Recipe schema
+│   ├── profile.js
+│   └── edit-recipe.js
 ├── routes/
 │   ├── authRoutes.js         # Authentication routes
 │   ├── userRoutes.js         # User profile routes
 │   └── recipeRoutes.js       # Recipe CRUD routes
 ├── middleware/
 │   ├── authMiddleware.js     # JWT verification
-│   └── errorMiddleware.js    # Error handling
+│   ├── errorMiddleware.js    # Error handling
+│   └──validationMiddleware.js
 ├── controllers/
 │   ├── authController.js     # Auth logic
 │   ├── userController.js     # User logic
 │   └── recipeController.js   # Recipe logic
+├── public/
+│   ├── create.html
+│   ├── edit-recipe.html
+│   ├── index.html
+│   ├── login.html
+│   ├── profile.html
+│   ├── recipe.html
+│   ├── register.html
+│   └── style.css
+├── validators/
+│   ├── authValidator.js    
+│   ├── recipeValidator.js   
+│   └── userValidator.js
 ├── .env                      # Environment variables
 ├── .gitignore
 ├── package.json
 ├── server.js                 # Entry point
-└── README.md
+├── postman tests/
+│   └──postman tests screenshots
+└── README.md                                                                       
 ```
 
-## 🔧 Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 - Node.js (v14 or higher)
@@ -136,7 +154,7 @@ POST /api/auth/register
   "username": "johndoe",
   "email": "john@example.com",
   "password": "password123",
-  "bio": "I love cooking!" // optional
+  "bio": "....." // optional
 }
 ```
 
@@ -450,7 +468,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 ---
 
-## 🔒 Authentication
+## Authentication
 
 ### How to Use JWT Token
 
@@ -471,7 +489,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-## ⚠️ Error Responses
+## Error Responses
 
 ### 400 Bad Request
 ```json
@@ -515,7 +533,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-## 🧪 Testing with Postman
+## Testing with Postman
 
 ### Step 1: Register a User
 - Method: POST
@@ -547,7 +565,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-## 🚀 Deployment
+## Deployment
 
 ### Deploying to Render
 
@@ -572,7 +590,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 
 ```json
 {
@@ -586,47 +604,3 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 }
 ```
 
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License.
-
----
-
-## 👨‍💻 Author
-
-**Your Name**
-- Email: your.email@example.com
-- GitHub: @yourusername
-
----
-
-## 🙏 Acknowledgments
-
-- Express.js documentation
-- MongoDB documentation
-- JWT best practices
-- Node.js community
-
----
-
-## 📞 Support
-
-For support, email your.email@example.com or create an issue in the repository.
-
----
-
-**Happy Cooking! 🍳👨‍🍳**

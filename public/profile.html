@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+  <main class="auth-container edit-clean">
+    <h2>My Profile</h2>
+
+    <form id="profileForm">
+      <div class="input-group">
+        <label>Username:</label>
+        <input type="text" id="username" required>
+      </div>
+
+      <div class="input-group">
+        <label>Email Address:</label>
+        <input type="email" id="email" required>
+      </div>
+
+      <div class="input-group">
+        <label>Bio / About Me:</label>
+        <textarea id="bio" placeholder="Tell us about yourself..."></textarea>
+      </div>
+
+      <button type="submit" class="save-btn">Update Profile</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 15px;">
+      <p id="message"></p>
+      <a href="index.html" style="color: #7f8c8d; text-decoration: none; font-size: 0.9rem;">← Back to Home</a>
+    </div>
+  </main>
+
+  <script>
+    const apiBase = "https://recipe-app-9ml5.onrender.com/api";
+    const token = localStorage.getItem("token");
+
+    // Если токена нет, отправляем на логин
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    // Загружаем данные профиля при старте
+    async function loadProfile() {
+      try {
+        const res = await fetch(`${apiBase}/users/profile`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const result = await res.json();
+        
+        if (result.success) {
+          document.getElementById("username").value = result.data.username || "";
+          document.getElementById("email").value = result.data.email || "";
+          document.getElementById("bio").value = result.data.bio || "";
+        }
+      } catch (err) {
+        console.error("Error loading profile:", err);
+      }
+    }
+
+    // Сохранение изменений
+    document.getElementById("profileForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const data = {
+        username: document.getElementById("username").value,
+        email: document.getElementById("email").value,
+        bio: document.getElementById("bio").value
+      };
+
+      try {
+        const res = await fetch(`${apiBase}/users/profile`, {
+          method: "PUT",
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        const msg = document.getElementById("message");
+        msg.innerText = result.message;
+        
+        if (res.ok) {
+          msg.style.color = "green";
+          setTimeout(() => { msg.innerText = ""; }, 3000);
+        } else {
+          msg.style.color = "red";
+        }
+      } catch (err) {
+        alert("Server error");
+      }
+    });
+
+    loadProfile();
+  </script>
+</body>
+</html>

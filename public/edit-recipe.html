@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Recipe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page"> 
+  <main class="auth-container edit-clean">
+    <h2>Edit Recipe</h2>
+
+    <form id="editRecipeForm">
+      <div class="input-group">
+        <label>Recipe Title:</label>
+        <input type="text" id="title" required>
+      </div>
+
+      <div class="input-group">
+        <label>Description:</label>
+        <textarea id="description" required></textarea>
+      </div>
+
+      <div class="input-group">
+        <label>Category:</label>
+        <select id="category" required>
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="dinner">Dinner</option>
+          <option value="dessert">Dessert</option>
+          <option value="snacks">Snacks</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Ingredients:</label>
+        <textarea id="ingredients" placeholder="One per line"></textarea>
+      </div>
+
+      <div class="input-group">
+        <label>Instructions:</label>
+        <textarea id="instructions" placeholder="Step by step"></textarea>
+      </div>
+
+      <div class="input-group">
+      <label>Time (min):</label>
+      <input type="number" id="cookingTime" required>
+    </div>
+
+    <div class="input-group">
+      <label>Servings:</label>
+      <input type="number" id="servings" required>
+    </div>
+      
+      <button type="submit" class="save-btn">Update Recipe</button>
+    </form>
+    
+    <div style="text-align: center; margin-top: 15px;">
+      <a href="index.html" style="color: #7f8c8d; text-decoration: none; font-size: 0.9rem;">← Cancel</a>
+    </div>
+  </main>
+
+  <script>
+    const apiBase = "https://recipe-app-9ml5.onrender.com/api";
+    const params = new URLSearchParams(window.location.search);
+    const recipeId = params.get("id");
+    const token = localStorage.getItem("token");
+
+    async function loadRecipeData() {
+      try {
+        const res = await fetch(`${apiBase}/recipes/${recipeId}`);
+        const result = await res.json();
+        if (result.success) {
+          const r = result.data;
+          document.getElementById("title").value = r.title;
+          document.getElementById("description").value = r.description;
+          document.getElementById("category").value = r.category;
+          document.getElementById("cookingTime").value = r.cookingTime;
+          document.getElementById("servings").value = r.servings;
+          document.getElementById("ingredients").value = r.ingredients.join("\n");
+          document.getElementById("instructions").value = r.instructions.join("\n");
+        }
+      } catch (err) { console.error(err); }
+    }
+
+    document.getElementById("editRecipeForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = {
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
+        category: document.getElementById("category").value,
+        cookingTime: Number(document.getElementById("cookingTime").value),
+        servings: Number(document.getElementById("servings").value),
+        ingredients: document.getElementById("ingredients").value.split("\n").filter(i => i.trim()),
+        instructions: document.getElementById("instructions").value.split("\n").filter(i => i.trim())
+      };
+
+      const res = await fetch(`${apiBase}/recipes/${recipeId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) { window.location.href = "index.html"; } 
+      else { alert("Error saving changes"); }
+    });
+
+    if (recipeId) loadRecipeData();
+  </script>
+</body>
+</html>

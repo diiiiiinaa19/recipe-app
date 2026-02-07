@@ -5,8 +5,8 @@
   <title>Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="auth-page">  <!-- ← ДОБАВИТЬ КЛАСС СЮДА -->
-  <main class="auth-container">  <!-- ← ДОБАВИТЬ КЛАСС СЮДА -->
+<body class="auth-page"> 
+  <main class="auth-container">  
     <h2>Login</h2>
     <form id="loginForm">
       <input type="email" name="email" placeholder="Email" required><br>
@@ -39,9 +39,9 @@
         document.getElementById("message").innerText = result.message;
 
         if (result.success) {
-          // Save token
+          
           localStorage.setItem("token", result.token);
-          // Redirect to home page
+        
           window.location.href = "index.html";
         }
       } catch (err) {

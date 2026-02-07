@@ -1,8 +1,7 @@
 const User = require('../models/User');
 
-// @desc    Get user profile
-// @route   GET /api/users/profile
-// @access  Private
+
+
 exports.getProfile = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
@@ -16,9 +15,8 @@ exports.getProfile = async (req, res, next) => {
   }
 };
 
-// @desc    Update user profile
-// @route   PUT /api/users/profile
-// @access  Private
+
+
 exports.updateProfile = async (req, res, next) => {
   try {
     const { username, email, bio } = req.body;

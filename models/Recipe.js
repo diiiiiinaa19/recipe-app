@@ -61,7 +61,7 @@ const recipeSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Remove __v from JSON output
+
 recipeSchema.methods.toJSON = function() {
   const recipe = this.toObject();
   delete recipe.__v;
