@@ -76,6 +76,16 @@ main {
   padding: 0 20px;
 }
 
+
+/* Auth page - centers the auth forms */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
 .auth-container {
   background: var(--card-bg);
   padding: 40px;
