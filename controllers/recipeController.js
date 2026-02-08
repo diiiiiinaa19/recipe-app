@@ -95,7 +95,6 @@ exports.updateRecipe = async (req, res, next) => {
       });
     }
     
-    
 
 
     if (recipe.author.toString() !== req.user._id.toString()) {
@@ -146,7 +145,6 @@ exports.deleteRecipe = async (req, res, next) => {
       });
     }
     
-    
 
     if (recipe.author.toString() !== req.user._id.toString()) {
       return res.status(403).json({
@@ -184,17 +182,21 @@ exports.getMyRecipes = async (req, res, next) => {
   }
 };
 
-const getRecipeById = async (req, res) => {
+
+exports.getRecipeById = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.id).populate('author', 'username');
     if (!recipe) {
-      return res.status(404).json({ success: false, message: 'Recipe not found' });
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Recipe not found' 
+      });
     }
-    res.json({ success: true, data: recipe });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.json({ 
+      success: true, 
+      data: recipe 
+    });
+  } catch (error) {
+    next(error);
   }
 };
-
-module.exports = { getRecipeById };

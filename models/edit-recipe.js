@@ -16,7 +16,7 @@ document
     };
 
     const res = await fetch(
-      `https://recipe-app-9ml5.onrender.com/api${recipeId}`,
+      `https://recipe-app-9ml5.onrender.com/api/recipes/${recipeId}`,
       {
         method: "PUT",
         headers: {
