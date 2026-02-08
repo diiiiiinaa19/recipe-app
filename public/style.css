@@ -227,7 +227,7 @@ li {
   font-size: 0.9rem;
   transition: all 0.3s ease;
   width: auto;
-
+}
 .editBtn:hover {
   background-color: #3498db;
   transform: translateY(-1px);
