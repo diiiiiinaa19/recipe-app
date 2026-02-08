@@ -1,8 +1,8 @@
-/* Современный и эстетичный стиль для Recipe App */
+
 :root {
-  --primary: #e67e22; /* Теплый оранжевый */
+  --primary: #e67e22;
   --primary-hover: #d35400;
-  --bg-color: #faf8f6; /* Очень светлый беж */
+  --bg-color: #faf8f6;
   --text-main: #2c3e50;
   --text-muted: #7f8c8d;
   --card-bg: #ffffff;
@@ -19,7 +19,7 @@ body {
   line-height: 1.6;
 }
 
-/* Шапка сайта */
+/* Шапка*/
 header {
   display: flex;
   justify-content: space-between;
@@ -77,7 +77,6 @@ main {
 }
 
 
-/* Auth page - centers the auth forms */
 .auth-page {
   display: flex;
   justify-content: center;
@@ -95,7 +94,6 @@ main {
   max-width: 400px !important;
 }
 
-/* Сетка рецептов на главной */
 #recipesContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -111,7 +109,7 @@ main {
   box-shadow: var(--shadow);
   transition: transform 0.3s ease;
   border: 1px solid rgba(0,0,0,0.03);
-  text-align: left; /* Изменено с center для современности */
+  text-align: left; 
 }
 
 .recipeCard:hover {
@@ -132,7 +130,6 @@ main {
   margin: 8px 0;
 }
 
-/* Фильтры */
 #filters {
   background: var(--card-bg);
   padding: 20px;
@@ -158,7 +155,6 @@ input:focus, textarea:focus {
   background: #fff;
 }
 
-/* Страница самого рецепта (детали) */
 .recipe-main {
   background: var(--card-bg);
   padding: 50px;
@@ -201,7 +197,6 @@ li {
   color: white;
 }
 
-/* Адаптивность */
 @media (max-width: 600px) {
   #filters {
     flex-direction: column;
@@ -212,17 +207,15 @@ li {
   }
 }
 
-/* Контейнер для кнопок внизу карточки */
 .cardActions {
   display: flex;
   justify-content: center;
   gap: 12px;
   margin-top: 20px;
   padding-top: 15px;
-  border-top: 1px solid #f0f0f0; /* Легкая разделительная линия */
+  border-top: 1px solid #f0f0f0; 
 }
 
-/* Кнопка Edit (Голубая/Спокойная) */
 .editBtn {
   background-color: #5dade2; 
   color: white;
@@ -233,15 +226,13 @@ li {
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  width: auto; /* Чтобы кнопка не растягивалась */
-}
+  width: auto;
 
 .editBtn:hover {
   background-color: #3498db;
   transform: translateY(-1px);
 }
 
-/* Кнопка Delete (Красная/Предупреждающая) */
 .deleteBtn {
   background-color: #ffefee;
   color: #ff4d4f;
@@ -260,12 +251,10 @@ li {
   color: white;
 }
 
-/* Специальный стиль для широкой формы редактирования */
 .edit-wide {
-  max-width: 500px !important; /* Делаем чуть шире, чтобы полям было просторно */
+  max-width: 500px !important; 
 }
 
-/* Группировка полей */
 .form-section {
   margin-bottom: 20px;
   text-align: left;
@@ -299,7 +288,6 @@ li {
   margin-bottom: 5px;
 }
 
-/* Улучшаем текстовые поля */
 textarea#ingredients, textarea#instructions {
   min-height: 100px;
   resize: vertical;
@@ -322,28 +310,28 @@ textarea#ingredients, textarea#instructions {
 .back-link:hover {
   color: var(--primary);
 }
-/* Основной контейнер формы редактирования */
+
 .auth-container.edit-clean {
   width: 450px !important;
   max-width: 95% !important;
 }
 
-/* Каждая группа (надпись + инпут) */
+
 .input-group {
-  margin-bottom: 20px; /* Увеличили отступ между полями */
+  margin-bottom: 20px; 
   text-align: left;
 }
 
-/* Черная надпись строго над полем */
+
 .input-group label {
   display: block;
-  font-weight: 700; /* Жирный */
-  color: #000000;   /* Черный */
+  font-weight: 700;
+  color: #000000;  
   margin-bottom: 8px;
   font-size: 14px;
 }
 
-/* Стили полей ввода */
+
 .input-group input, 
 .input-group textarea, 
 .input-group select {
@@ -352,10 +340,9 @@ textarea#ingredients, textarea#instructions {
   border: 1px solid #ccc;
   border-radius: 8px;
   box-sizing: border-box;
-  margin-bottom: 0 !important; /* Убираем лишний отступ снизу инпута */
+  margin-bottom: 0 !important; 
 }
 
-/* Кнопка сохранения */
 .save-btn {
   width: 100%;
   padding: 14px;
