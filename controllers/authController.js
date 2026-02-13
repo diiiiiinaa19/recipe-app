@@ -14,7 +14,6 @@ exports.register = async (req, res, next) => {
   try {
     const { username, email, password, bio } = req.body;
 
-    // Check if user already exists
     const userExists = await User.findOne({ $or: [{ email }, { username }] });
     
     if (userExists) {
@@ -33,7 +32,7 @@ exports.register = async (req, res, next) => {
     });
 
     
-    
+
     const token = generateToken(user._id);
 
     res.status(201).json({
@@ -52,14 +51,12 @@ exports.register = async (req, res, next) => {
   }
 };
 
-// @desc    Login user
-// @route   POST /api/auth/login
-// @access  Public
+
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    // Validate email and password
+   
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -67,7 +64,6 @@ exports.login = async (req, res, next) => {
       });
     }
 
-    // Check user exists
     const user = await User.findOne({ email });
     
     if (!user) {
@@ -77,7 +73,6 @@ exports.login = async (req, res, next) => {
       });
     }
 
-    // Check password
     const isMatch = await user.comparePassword(password);
     
     if (!isMatch) {
@@ -87,7 +82,6 @@ exports.login = async (req, res, next) => {
       });
     }
 
-    // Generate token
     const token = generateToken(user._id);
 
     res.status(200).json({
